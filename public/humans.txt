@@ -5,7 +5,7 @@ Location: Martigny, Switzerland
 Contact: hi [at] luismarques.ch
 
 /* THANKS */
-An AI pair programmer helped with the wording and the plumbing.
+Claude Code helped with the wording and the plumbing.
 The ideas, the sarcasm and the career are all human.
 
 /* SITE */

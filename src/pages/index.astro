@@ -281,16 +281,14 @@ const personSchema = {
     <footer class="site-footer">
       <div class="wrap">
         {person.disclaimers.map((line) => <p>{line}</p>)}
+        {/* Keep each sentence on one line: Astro drops the whitespace when a text
+            line ends and the next one starts with an element, which glues the words
+            to the link. */}
         <p>
-          Built with <a href="https://astro.build" rel="noopener">Astro</a>, hosted on
-          <a href="https://pages.github.com" rel="noopener">GitHub Pages</a>. Brand icons by
-          <a href="https://simpleicons.org" rel="noopener">Simple Icons</a>, cloud outline from
-          <a href="https://feathericons.com" rel="noopener">Feather Icons</a>.
-          All product names, logos and brands are property of their respective owners and are
-          used here for identification purposes only.
+          Built with <a href="https://astro.build" rel="noopener">Astro</a>, hosted on <a href="https://pages.github.com" rel="noopener">GitHub Pages</a>. Brand icons by <a href="https://simpleicons.org" rel="noopener">Simple Icons</a>, cloud outline from <a href="https://feathericons.com" rel="noopener">Feather Icons</a>. All product names, logos and brands are property of their respective owners and are used here for identification purposes only.
         </p>
         <p>
-          © {person.careerStart}–<span id="year">{new Date().getFullYear()}</span> {person.name} ·
+          © {person.careerStart}–<span id="year">{new Date().getFullYear()}</span> {person.name} ·{' '}
           {links.map(({ label, href }, i) => (
             <>
               <a href={href} rel="me noopener">{label}</a>{i < links.length - 1 ? ' · ' : ''}

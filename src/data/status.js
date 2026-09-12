@@ -21,7 +21,7 @@ export const person = {
     'Polyvalent problem-solver with 20+ years of turning “it’s broken” into “it works, don’t touch it”.',
   disclaimers: [
     'Everything on this page is my own content, written on my own time. Opinions, jokes and questionable metaphors are mine alone and do not represent my employer or anything related to my work.',
-    'The ideas are mine. An AI occasionally helps me debug the wording, since English is roughly my third language.',
+    'The ideas are mine. This page was built together with Claude Code, which also helps me debug the wording, since English is roughly my third language.',
     'This is a parody of a status page. No SLAs were harmed in the making.',
     'Analytics: this site uses GoatCounter, a privacy-friendly counter with no cookies. It records anonymous page views and which links get clicked, mostly to answer the question "does anyone actually visit this". Nothing personal is stored, which is why there is no cookie banner.',
   ],
