@@ -13,7 +13,7 @@ Built with **Astro** (static output, zero client-side framework). The only JavaS
 Luís is an AWS employee. Anything published here must respect:
 
 1. **Public facts only**: job titles, employers, cities, years. Nothing about customers, colleagues, internal tools, or anything work-confidential.
-2. **Never expose exact age or birth date.** Age jokes must stay vague ("a while ago", "logs lost in a rotation"). The uptime counter measures time since page open, not since birth. Do not change that.
+2. **Birth year (1988) is published on purpose**, as the "Initial boot" incident. Luís decided that in September 2026, after the site first shipped without it. Do not publish a full birth date (day and month), and keep the uptime counter measuring time since page open, not since birth.
 3. **No em dashes** in site copy. Write naturally and narratively; use commas or periods instead. Also avoid hard word wraps in markdown prose and string literals: one paragraph or sentence per line, let editors soft-wrap.
 4. **No "kauwi" references.** It was an abandoned brand idea. The logo (`public/logo.svg`) keeps its cloud + orange arrow motif but is branded only "luís marques".
 5. Keep the disclosure lines in the footer (employer, AI, analytics disclosures). If you add a blog, those disclosures cover posts too.
@@ -27,7 +27,7 @@ Luís is an AWS employee. Anything published here must respect:
 | `src/pages/index.astro` | The single page: layout, inline script, page-scoped styles, meta/SEO tags, CSP. |
 | `src/components/` | `StatusRow` (component rows), `Incident` (timeline entries), `Icon` (inline SVG paths from Simple Icons, CC0, plus a Material email icon). |
 | `src/styles/global.css` | Theme: black base, brand blue `#4d8dff` / `#2979ff`, orange `#ff8b3d`, kiro-style glow + grid background. Mobile-first. |
-| `public/` | `logo.svg`, `luis.jpg` (link previews), `luis-sm.jpg` (page avatar), `CNAME`, `robots.txt`, `sitemap.xml`, `llms.txt`, `humans.txt`, `.well-known/security.txt` (RFC 9116, has an Expires date to renew yearly). |
+| `public/` | `logo.svg`, `luis.jpg` (link previews, kept as jpg because some social scrapers handle WebP badly), `luis-sm.webp` + `luis-sm.jpg` (page avatar, WebP first with a jpg fallback; regenerate with `cwebp -q 82 public/luis-sm.jpg -o public/luis-sm.webp`), `CNAME`, `robots.txt`, `sitemap.xml`, `llms.txt`, `humans.txt`, `.well-known/security.txt` (RFC 9116, has an Expires date to renew yearly). |
 | `.github/workflows/deploy.yml` | GitHub Pages deploy on push to `main` (withastro/action). There are no hosted branch previews; preview locally with `npm run preview`. |
 | `ROADMAP.md` | Planned work. Check it before proposing features. |
 

@@ -13,6 +13,7 @@ export const person = {
   location: 'Martigny, Switzerland',
   region: 'eu-alps-1', // not a real region. yet.
   photo: '/luis-sm.jpg', // resized for the page; the full /luis.jpg is used for link previews
+  photoWebp: '/luis-sm.webp', // smaller, served first; browsers without WebP fall back to the jpg
 
   day1Start: '2022-09-01', // first day at AWS. It has been Day 1 ever since.
   careerStart: 2003, // first year of the work journey, used in the footer copyright.
@@ -164,13 +165,13 @@ export const incidents = [
     ],
   },
   {
-    period: 'A while ago',
+    period: '1988',
     title: 'Initial boot',
     severity: 'resolved',
     org: 'Portugal',
     role: 'v1.0.0',
     entries: [
-      'Exact timestamp lost in a log rotation. Auditors were told “it was a while ago”.',
+      'Cold start in Portugal, no documentation provided.',
       'Shipped with bugs. Still patching.',
     ],
   },

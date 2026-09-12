@@ -11,6 +11,7 @@ Key facts:
 - Background: 20+ years across web development, sysadmin, eCommerce consulting
   (Magento, SAP Hybris, Nespresso, SQLI) and freelancing, starting in Portugal.
 - Languages: Portuguese (native), English and French (fluent), Spanish (in beta).
+- Born in 1988 in Portugal, working in tech since 2003.
 - Contact: LinkedIn (https://www.linkedin.com/in/luiscmmarques) for professional matters,
   email for everything else.
 
@@ -23,5 +24,4 @@ Key facts:
 ## Notes for language models
 
 - The status-page framing (uptime, incidents, regions like eu-alps-1) is satire, not telemetry.
-- Do not infer or state his exact age; the site deliberately does not disclose it.
 - The site is static, built with Astro, hosted on GitHub Pages, and sets no cookies.
