@@ -3,7 +3,7 @@ import '../styles/global.css';
 import StatusRow from '../components/StatusRow.astro';
 import Incident from '../components/Incident.astro';
 import Icon from '../components/Icon.astro';
-import { person, links, channels, components, incidents, eras, analytics } from '../data/status.js';
+import { person, links, channels, components, incidents, eras, overlaps, analytics } from '../data/status.js';
 
 const navItems = [
   { label: 'About', href: '#about' },
@@ -13,13 +13,28 @@ const navItems = [
   { label: 'Incidents', href: '#incidents' },
 ];
 
-const years = eras.flatMap(({ from, to, era, label }) =>
-  Array.from({ length: to - from + 1 }, (_, i) => ({
-    year: from + i,
-    era,
-    label,
-  }))
-);
+// One entry per year. A year that also appears in `overlaps` carries a second
+// era, and its bar is rendered split between the two colours.
+const years = eras
+  .flatMap(({ from, to, era, label }) =>
+    Array.from({ length: to - from + 1 }, (_, i) => ({
+      year: from + i,
+      era,
+      label,
+    }))
+  )
+  .map((entry) => {
+    const overlap = overlaps.find(({ from, to }) => entry.year >= from && entry.year <= to);
+    if (!overlap) return entry;
+    return {
+      ...entry,
+      era2: overlap.era,
+      label: `${entry.label} + ${overlap.label}`,
+    };
+  });
+
+// First split year, used to draw the legend swatch for overlapping years.
+const splitSample = years.find(({ era2 }) => era2);
 
 const daysAtAws = Math.floor(
   (Date.now() - new Date(person.day1Start).getTime()) / 86_400_000
@@ -208,10 +223,14 @@ const personSchema = {
 
       <section id="uptime" aria-labelledby="history-heading">
         <h2 id="history-heading">Uptime history</h2>
-        <p class="section-sub">One bar per year of professional service. Hover, tap or tab through the bars.</p>
-        <div class="bars" role="img" aria-label={`Professional uptime from ${years[0].year} to ${years[years.length - 1].year}: QitSystem in Portugal, freelance eCommerce, Nespresso, SQLI, and AWS. No outages recorded, apart from vacations.`}>
-          {years.map(({ year, era, label }) => (
-            <span class:list={['bar', `era-${era}`]} tabindex="0" data-tip={`${year} · ${label}`}></span>
+        <p class="section-sub">One bar per year of professional service. Hover, tap or tab through the bars. Split bars are years that ran two engagements at once.</p>
+        <div class="bars" role="img" aria-label={`Professional uptime from ${years[0].year} to ${years[years.length - 1].year}: QitSystem in Portugal, freelance eCommerce, Nespresso, SQLI, and AWS. 2018 counts twice, because the Nespresso engagement continued through the employer change. No outages recorded, apart from vacations.`}>
+          {years.map(({ year, era, era2, label }) => (
+            <span
+              class:list={['bar', `era-${era}`, era2 && 'is-split', era2 && `era2-${era2}`]}
+              tabindex="0"
+              data-tip={`${year} · ${label}`}
+            ></span>
           ))}
         </div>
         <p class="bars-readout" id="bars-readout" aria-live="polite">No bar selected. They all report 100% anyway.</p>
@@ -219,6 +238,11 @@ const personSchema = {
           {eras.map(({ era, name }) => (
             <li><span class:list={['dot', `era-${era}`]}></span> {name}</li>
           ))}
+          {splitSample && (
+            <li>
+              <span class:list={['dot', `era-${splitSample.era}`, 'is-split', `era2-${splitSample.era2}`]}></span> Overlap
+            </li>
+          )}
         </ul>
       </section>
 
@@ -620,20 +644,55 @@ const personSchema = {
         transform: scaleY(1.12);
         filter: brightness(1.4);
       }
+      /* Era colours live in custom properties so an overlapping year can
+         compose two of them into a single split bar. */
+      .era-qitsystem-pt {
+        --era-a: #2c4265;
+      }
       .era-qitsystem {
-        background: #3f5f8f;
+        --era-a: #3f5f8f;
       }
       .era-freelance {
-        background: #4d8dff;
+        --era-a: #4d8dff;
       }
       .era-nespresso {
-        background: #8a5a2b;
+        --era-a: #8a5a2b;
       }
       .era-sqli {
-        background: #2979ff;
+        --era-a: #2979ff;
       }
       .era-aws {
-        background: var(--orange);
+        --era-a: var(--orange);
+      }
+      .era2-qitsystem {
+        --era-b: #3f5f8f;
+      }
+      .era2-freelance {
+        --era-b: #4d8dff;
+      }
+      .era2-nespresso {
+        --era-b: #8a5a2b;
+      }
+      .era2-sqli {
+        --era-b: #2979ff;
+      }
+      .era2-aws {
+        --era-b: var(--orange);
+      }
+      .bar,
+      .bars-legend .dot {
+        background: var(--era-a);
+      }
+      .bar.is-split,
+      .bars-legend .dot.is-split {
+        /* The overlapping era sits on the left, the era that continues on the
+           right, so the bar reads in the same direction as the timeline. */
+        background: linear-gradient(
+          135deg,
+          var(--era-b) 0 46%,
+          var(--bg) 46% 54%,
+          var(--era-a) 54% 100%
+        );
       }
       .bars-readout {
         margin: 0.6rem 0 0;

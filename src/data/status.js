@@ -123,6 +123,7 @@ export const incidents = [
     org: 'SQLI · Lausanne, CH',
     role: 'Magento Developer → Tech Lead & Technical Project Manager',
     entries: [
+      'New employer, same client for a while: the Nespresso engagement carried on into 2018, which is why the two incidents overlap.',
       'Promoted from debugging code to debugging projects, and occasionally humans.',
       'Led local and nearshore teams on Adobe Commerce, standard and headless.',
       'Deprecated: writing PHP at 2am. Mostly.',
@@ -135,6 +136,7 @@ export const incidents = [
     org: 'Nestlé Nespresso · Lausanne, CH',
     role: 'eCommerce Consultant (SAP Hybris)',
     entries: [
+      'On site as an external consultant, so the engagement outlived the contract that started it.',
       'Rolled out storefronts to markets worldwide, cross-channel and cross-platform.',
       'Learned that enterprise Java and espresso pair surprisingly well.',
       'Side effect: coffee intake permanently reclassified as “elevated”.',
@@ -157,11 +159,12 @@ export const incidents = [
     title: 'Initial deployment: Portugal',
     severity: 'resolved',
     org: 'QitSystem · Coimbra & Seia, PT',
-    role: 'Web Developer & SysAdmin',
+    role: 'Part-time Computer Technician → Web Developer & SysAdmin',
     entries: [
-      'Bespoke PHP/MySQL websites, eCommerce, hybrid Windows/Linux networks.',
-      'The era of fixing computers for everyone, including the neighbours.',
-      'Root cause of everything that followed.',
+      'Booted in part-time mode while studying: selling machines, fixing machines, then repairing the network the machines had upset.',
+      'Promoted to full deployment: bespoke PHP/MySQL sites and eCommerce for clients in Portugal, Italy and Germany.',
+      'Same badge, second hat: hybrid Windows/Linux networks, ERP rollouts, and an intranet nobody ever filed a ticket to thank me for.',
+      'The era of fixing computers for everyone, including the neighbours. Root cause of everything that followed.',
     ],
   },
   {
@@ -180,9 +183,16 @@ export const incidents = [
 // Yearly "uptime bars", one per year, hover for context.
 // era controls the bar colour; label is the tooltip.
 export const eras = [
-  { from: 2003, to: 2011, era: 'qitsystem', name: 'QitSystem', label: 'QitSystem · web dev & sysadmin · Portugal' },
+  { from: 2003, to: 2009, era: 'qitsystem-pt', name: 'QitSystem (part-time)', label: 'QitSystem · part-time computer technician, studies in parallel · Portugal' },
+  { from: 2010, to: 2011, era: 'qitsystem', name: 'QitSystem', label: 'QitSystem · web dev & sysadmin · Portugal' },
   { from: 2012, to: 2015, era: 'freelance', name: 'Freelance', label: 'Freelance · eCommerce consulting · Valais' },
-  { from: 2016, to: 2017, era: 'nespresso', name: 'Nespresso', label: 'Nespresso · eCommerce · Lausanne' },
+  { from: 2016, to: 2017, era: 'nespresso', name: 'Nespresso', label: 'Nespresso · eCommerce consultant · Lausanne' },
   { from: 2018, to: 2021, era: 'sqli', name: 'SQLI', label: 'SQLI · tech lead · Lausanne' },
   { from: 2022, to: new Date().getFullYear(), era: 'aws', name: 'AWS', label: 'AWS · Technical Account Manager · Geneva' },
+];
+
+// Years that ran two engagements at once. Those bars render split, half of each colour.
+// 2018: the employer changed, the Nespresso engagement did not, so the year belongs to both.
+export const overlaps = [
+  { from: 2018, to: 2018, era: 'nespresso', label: 'Nespresso engagement continued through the employer change' },
 ];
