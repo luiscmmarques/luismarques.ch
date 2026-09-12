@@ -13,16 +13,21 @@ const navItems = [
   { label: 'Incidents', href: '#incidents' },
 ];
 
-// One entry per year. A year that also appears in `overlaps` carries a second
-// era, and its bar is rendered split between the two colours.
+// One entry per year. Each era runs from its start year until the next era
+// starts, and the last one runs to the current year. A year that also appears
+// in `overlaps` carries a second era, and its bar is rendered split between
+// the two colours.
+const currentYear = new Date().getFullYear();
+
 const years = eras
-  .flatMap(({ from, to, era, label }) =>
-    Array.from({ length: to - from + 1 }, (_, i) => ({
-      year: from + i,
+  .flatMap(({ start, era, label }, i) => {
+    const end = (eras[i + 1]?.start ?? currentYear + 1) - 1;
+    return Array.from({ length: end - start + 1 }, (_, n) => ({
+      year: start + n,
       era,
       label,
-    }))
-  )
+    }));
+  })
   .map((entry) => {
     const overlap = overlaps.find(({ from, to }) => entry.year >= from && entry.year <= to);
     if (!overlap) return entry;

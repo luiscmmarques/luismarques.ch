@@ -88,7 +88,7 @@ export const components = [
   {
     name: 'Coffee intake',
     status: 'elevated',
-    note: 'By design. Two years at Nespresso left permanent configuration changes.',
+    note: 'By design. A Nespresso stint left permanent configuration changes.',
   },
   {
     name: 'Sarcasm',
@@ -181,14 +181,17 @@ export const incidents = [
 ];
 
 // Yearly "uptime bars", one per year, hover for context.
+// Each era only declares the year it started. It then runs until the next era
+// begins, and the last one runs to today, so these years are the same numbers
+// as the incident periods above and cannot drift away from them.
 // era controls the bar colour; label is the tooltip.
 export const eras = [
-  { from: 2003, to: 2009, era: 'qitsystem-pt', name: 'QitSystem (part-time)', label: 'QitSystem · part-time computer technician, studies in parallel · Portugal' },
-  { from: 2010, to: 2011, era: 'qitsystem', name: 'QitSystem', label: 'QitSystem · web dev & sysadmin · Portugal' },
-  { from: 2012, to: 2015, era: 'freelance', name: 'Freelance', label: 'Freelance · eCommerce consulting · Valais' },
-  { from: 2016, to: 2017, era: 'nespresso', name: 'Nespresso', label: 'Nespresso · eCommerce consultant · Lausanne' },
-  { from: 2018, to: 2021, era: 'sqli', name: 'SQLI', label: 'SQLI · tech lead · Lausanne' },
-  { from: 2022, to: new Date().getFullYear(), era: 'aws', name: 'AWS', label: 'AWS · Technical Account Manager · Geneva' },
+  { start: 2003, era: 'qitsystem-pt', name: 'QitSystem (part-time)', label: 'QitSystem · part-time computer technician, studies in parallel · Portugal' },
+  { start: 2010, era: 'qitsystem', name: 'QitSystem', label: 'QitSystem · web dev & sysadmin · Portugal' },
+  { start: 2012, era: 'freelance', name: 'Freelance', label: 'Freelance · eCommerce consulting · Valais' },
+  { start: 2016, era: 'nespresso', name: 'Nespresso', label: 'Nespresso · eCommerce consultant · Lausanne' },
+  { start: 2018, era: 'sqli', name: 'SQLI', label: 'SQLI · tech lead · Lausanne' },
+  { start: 2022, era: 'aws', name: 'AWS', label: 'AWS · Technical Account Manager · Geneva' },
 ];
 
 // Years that ran two engagements at once. Those bars render split, half of each colour.

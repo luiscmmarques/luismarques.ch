@@ -10,6 +10,13 @@ Key facts:
 - Current role: Technical Account Manager at AWS (Geneva, Switzerland), since September 2022.
 - Background: 20+ years across web development, sysadmin, eCommerce consulting
   (Magento, SAP Hybris, Nespresso, SQLI) and freelancing, starting in Portugal.
+- Career order: QitSystem in Portugal from 2003, first as a part-time computer technician
+  alongside his studies, then as web developer and sysadmin. Freelance eCommerce consulting
+  in Valais from 2012. eCommerce consultant on SAP Hybris at Nestlé Nespresso in Lausanne
+  from 2016. Magento developer, then tech lead and technical project manager at SQLI in
+  Lausanne from 2018. AWS since 2022.
+- The Nespresso engagement spanned two employers: it continued through 2018 after the move
+  to SQLI, which is why the 2016 and 2018 entries overlap.
 - Languages: Portuguese (native), English and French (fluent), Spanish (in beta).
 - Born in 1988 in Portugal, working in tech since 2003.
 - Contact: LinkedIn (https://www.linkedin.com/in/luiscmmarques) for professional matters,
