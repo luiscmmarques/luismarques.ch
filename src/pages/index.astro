@@ -3,6 +3,8 @@ import '../styles/global.css';
 import StatusRow from '../components/StatusRow.astro';
 import Incident from '../components/Incident.astro';
 import Icon from '../components/Icon.astro';
+import Flag from '../components/Flag.astro';
+import Canton from '../components/Canton.astro';
 import { person, links, channels, components, incidents, eras, overlaps, analytics } from '../data/status.js';
 
 const navItems = [
@@ -53,7 +55,7 @@ const personSchema = {
   '@context': 'https://schema.org',
   '@type': 'Person',
   name: person.name,
-  jobTitle: 'Technical Account Manager',
+  jobTitle: 'Technical Account Manager (TAM)',
   worksFor: { '@type': 'Organization', name: 'Amazon Web Services (AWS)', alternateName: 'AWS' },
   url: 'https://luismarques.ch/',
   image: 'https://luismarques.ch/luis.jpg',
@@ -88,12 +90,19 @@ const personSchema = {
     <meta property="og:site_name" content="Luís Marques" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:url" content="https://luismarques.ch/" />
-    <meta property="og:image" content="https://luismarques.ch/luis.jpg" />
-    <meta property="og:image:alt" content={`Portrait of ${person.name}`} />
-    <meta name="twitter:card" content="summary" />
+    {/* Link preview card, generated from tools/og-card.html. See AGENTS.md to regenerate. */}
+    <meta property="og:image" content="https://luismarques.ch/og.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content={`Status card: All Systems Operational, ${person.name}, ${person.title}`}
+    />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Luís Marques | Status" />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content="https://luismarques.ch/luis.jpg" />
+    <meta name="twitter:image" content="https://luismarques.ch/og.png" />
     <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
     {analytics.goatcounter && (
       <script
@@ -196,12 +205,7 @@ const personSchema = {
             <p class="metric-label">Region</p>
             <p class="metric-value">{person.region}</p>
             <p class="metric-sub">
-              <svg class="flag-ch" viewBox="0 0 32 32" width="14" height="14" role="img" aria-label="Swiss flag">
-                <rect width="32" height="32" rx="6" fill="#d52b1e"></rect>
-                <rect x="13" y="7" width="6" height="18" fill="#fff"></rect>
-                <rect x="7" y="13" width="18" height="6" fill="#fff"></rect>
-              </svg>
-              {person.location}. Not a real region. Yet.
+              <Flag country="ch" /><Canton canton="vs" />{person.location}. Not a real region. Yet.
             </p>
           </div>
           <div class="metric">
@@ -280,6 +284,10 @@ const personSchema = {
 
     <footer class="site-footer">
       <div class="wrap">
+        <p class="footer-badges">
+          <span class="footer-badge">Cookies: 0</span>
+          <span class="footer-badge">Consent banners: 0</span>
+        </p>
         {person.disclaimers.map((line) => <p>{line}</p>)}
         {/* Keep each sentence on one line: Astro drops the whitespace when a text
             line ends and the next one starts with an element, which glues the words
@@ -603,11 +611,6 @@ const personSchema = {
         color: var(--muted);
         font-variant-numeric: tabular-nums;
       }
-      .flag-ch {
-        display: inline-block;
-        vertical-align: -2px;
-        margin-right: 0.15rem;
-      }
 
       /* Sections */
       h2 {
@@ -781,6 +784,26 @@ const personSchema = {
       }
       .site-footer p {
         margin: 0.4rem 0;
+      }
+      .footer-badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+        margin-bottom: 0.9rem;
+      }
+      .footer-badge {
+        font-size: 0.75rem;
+        font-weight: 600;
+        padding: 0.15rem 0.6rem;
+        border-radius: 999px;
+        color: var(--ok);
+        background: var(--ok-bg);
+        white-space: nowrap;
+      }
+      .footer-badge::before {
+        content: '●';
+        margin-right: 0.35rem;
+        font-size: 0.65rem;
       }
 
       /* Larger screens */

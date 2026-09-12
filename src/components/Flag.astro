@@ -1,0 +1,44 @@
+---
+// Tiny inline country flags, simplified so they stay readable at 14px.
+// No flag emoji: those render differently per platform and some hide them entirely.
+const { country, size = 14, label } = Astro.props;
+
+const names = { ch: 'Swiss flag', pt: 'Portuguese flag' };
+---
+
+<svg
+  class="flag"
+  viewBox="0 0 32 32"
+  width={size}
+  height={size}
+  role={label === false ? undefined : 'img'}
+  aria-label={label === false ? undefined : (label ?? names[country])}
+  aria-hidden={label === false ? 'true' : undefined}
+  focusable="false"
+>
+  {country === 'ch' && (
+    <>
+      <rect width="32" height="32" rx="6" fill="#d52b1e"></rect>
+      <rect x="13" y="7" width="6" height="18" fill="#fff"></rect>
+      <rect x="7" y="13" width="18" height="6" fill="#fff"></rect>
+    </>
+  )}
+  {country === 'pt' && (
+    <>
+      <rect width="32" height="32" rx="6" fill="#da291c"></rect>
+      <path d="M6 0h7v32H6z" fill="#046a38"></path>
+      <path d="M0 6a6 6 0 0 1 6-6v32a6 6 0 0 1-6-6z" fill="#046a38"></path>
+      <circle cx="13" cy="16" r="6" fill="#ffd200"></circle>
+      <circle cx="13" cy="16" r="3.2" fill="#fff"></circle>
+      <circle cx="13" cy="16" r="1.5" fill="#da291c"></circle>
+    </>
+  )}
+</svg>
+
+<style>
+  .flag {
+    vertical-align: -0.15em;
+    margin-right: 0.35rem;
+    border-radius: 2px;
+  }
+</style>

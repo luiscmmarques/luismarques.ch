@@ -1,5 +1,8 @@
 ---
-const { period, title, org, role, entries } = Astro.props;
+import Flag from './Flag.astro';
+import Canton from './Canton.astro';
+
+const { period, title, org, role, entries, flag, canton } = Astro.props;
 ---
 
 <article class="incident">
@@ -7,7 +10,8 @@ const { period, title, org, role, entries } = Astro.props;
   <div class="incident-body">
     <p class="incident-period">{period}</p>
     <h3 class="incident-title">{title}</h3>
-    <p class="incident-meta">{role} · {org}</p>
+    {/* The country is already spelled out in `org`, so the flag is decoration only. */}
+    <p class="incident-meta">{role} · {flag && <Flag country={flag} label={false} />}{canton && <Canton canton={canton} />}{org}</p>
     <ul class="incident-entries">
       {entries.map((entry) => <li>{entry}</li>)}
     </ul>

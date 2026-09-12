@@ -7,7 +7,7 @@
 
 export const person = {
   name: 'Luís Marques',
-  title: 'Technical Account Manager @ Amazon Web Services (AWS)',
+  title: 'Technical Account Manager (TAM) @ Amazon Web Services (AWS)',
   // Official description of what a TAM actually does, for the curious.
   titleUrl: 'https://aws.amazon.com/premiumsupport/tam-engagement/',
   location: 'Martigny, Switzerland',
@@ -72,31 +72,44 @@ export const channels = [
 export const components = [
   {
     name: 'Cloud advisory',
+    icon: 'cloud',
     status: 'operational',
     note: 'Answering “it depends” with 99.99% consistency.',
   },
   {
     name: 'eCommerce expertise',
+    icon: 'cart',
     status: 'operational',
     note: 'Legacy support mode. Magento memories retained for compliance reasons.',
   },
   {
     name: 'Languages',
+    icon: 'globe',
     status: 'operational',
-    note: 'PT native · EN fluent · FR fluent · ES still in beta.',
+    note: 'PT native · EN fluent · FR fluent · ES still being promoted from alpha to beta.',
+  },
+  {
+    name: 'Availability zones',
+    icon: 'pin',
+    status: 'operational',
+    note: 'Three cantons served so far: Valais, Vaud and Geneva. Cross-zone latency: one train ride.',
+    cantons: ['vs', 'vd', 'ge'],
   },
   {
     name: 'Coffee intake',
+    icon: 'coffee',
     status: 'elevated',
     note: 'By design. A Nespresso stint left permanent configuration changes.',
   },
   {
     name: 'Sarcasm',
+    icon: 'zap',
     status: 'operational',
     note: '100% uptime since initial boot. Cannot be disabled.',
   },
   {
     name: 'Weekends',
+    icon: 'compass',
     status: 'maintenance',
     note: 'Scheduled maintenance windows: hiking, family, and walking a dachshund whose legs do not match the terrain. The Alps are the runbook.',
   },
@@ -109,7 +122,9 @@ export const incidents = [
     title: 'Migrated to AWS, the employer this time, not just the cloud',
     severity: 'resolved',
     org: 'Amazon Web Services (AWS) · Geneva, CH',
-    role: 'Technical Account Manager',
+    flag: 'ch',
+    canton: 'ge',
+    role: 'Technical Account Manager (TAM)',
     entries: [
       'Zero-downtime migration from consulting to cloud advisory.',
       'Now professionally invested in other people’s architectures staying up.',
@@ -121,6 +136,8 @@ export const incidents = [
     title: 'Failover to agency life',
     severity: 'resolved',
     org: 'SQLI · Lausanne, CH',
+    flag: 'ch',
+    canton: 'vd',
     role: 'Magento Developer → Tech Lead & Technical Project Manager',
     entries: [
       'New employer, same client for a while: the Nespresso engagement carried on into 2018, which is why the two incidents overlap.',
@@ -134,6 +151,8 @@ export const incidents = [
     title: 'Deployed to Nespresso. What else?',
     severity: 'resolved',
     org: 'Nestlé Nespresso · Lausanne, CH',
+    flag: 'ch',
+    canton: 'vd',
     role: 'eCommerce Consultant (SAP Hybris)',
     entries: [
       'On site as an external consultant, so the engagement outlived the contract that started it.',
@@ -147,6 +166,8 @@ export const incidents = [
     title: 'Self-hosted mode: freelancing',
     severity: 'resolved',
     org: 'Independent · Valais, CH (remote for DE clients)',
+    flag: 'ch',
+    canton: 'vs',
     role: 'eCommerce Consultant & Technical Lead',
     entries: [
       'Ran eCommerce platforms, campaigns and analytics for European retailers.',
@@ -159,6 +180,7 @@ export const incidents = [
     title: 'Initial deployment: Portugal',
     severity: 'resolved',
     org: 'QitSystem · Coimbra & Seia, PT',
+    flag: 'pt',
     role: 'Part-time Computer Technician → Web Developer & SysAdmin',
     entries: [
       'Booted in part-time mode while studying: selling machines, fixing machines, then repairing the network the machines had upset.',
@@ -172,6 +194,7 @@ export const incidents = [
     title: 'Initial boot',
     severity: 'resolved',
     org: 'Portugal',
+    flag: 'pt',
     role: 'v1.0.0',
     entries: [
       'Cold start in Portugal, no documentation provided.',
@@ -191,7 +214,7 @@ export const eras = [
   { start: 2012, era: 'freelance', name: 'Freelance', label: 'Freelance · eCommerce consulting · Valais' },
   { start: 2016, era: 'nespresso', name: 'Nespresso', label: 'Nespresso · eCommerce consultant · Lausanne' },
   { start: 2018, era: 'sqli', name: 'SQLI', label: 'SQLI · tech lead · Lausanne' },
-  { start: 2022, era: 'aws', name: 'AWS', label: 'AWS · Technical Account Manager · Geneva' },
+  { start: 2022, era: 'aws', name: 'AWS', label: 'AWS · Technical Account Manager (TAM) · Geneva' },
 ];
 
 // Years that ran two engagements at once. Those bars render split, half of each colour.
