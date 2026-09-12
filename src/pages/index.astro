@@ -148,7 +148,10 @@ const personSchema = {
       </section>
 
       <section id="about" class="hero" aria-label="About">
-        <img class="avatar" src={person.photo} alt={`Portrait of ${person.name}`} width="112" height="112" loading="eager" />
+        <picture>
+          <source srcset={person.photoWebp} type="image/webp" />
+          <img class="avatar" src={person.photo} alt={`Portrait of ${person.name}`} width="112" height="112" loading="eager" />
+        </picture>
         <div>
           <h1>{person.name}</h1>
           <p class="hero-title">
@@ -501,6 +504,10 @@ const personSchema = {
         gap: 1rem;
         margin-top: 2rem;
         align-items: flex-start;
+      }
+      .hero picture {
+        flex-shrink: 0;
+        line-height: 0;
       }
       .avatar {
         border-radius: 50%;

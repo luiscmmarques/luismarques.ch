@@ -13,7 +13,6 @@ Ideas queued for luismarques.ch, roughly in order. No dates, no SLAs (fitting fo
 - [ ] Scheduled maintenance section (upcoming vacations, rendered as maintenance windows).
 - [ ] OG image generated from the status banner instead of the plain photo.
 - [ ] Language toggle (EN/FR/PT) if it can be done without tripling maintenance.
-- [ ] Convert photos to WebP/AVIF for the last ~13 KiB of image savings.
 
 ## Done
 
@@ -27,3 +26,5 @@ Ideas queued for luismarques.ch, roughly in order. No dates, no SLAs (fitting fo
 - [x] SEO: JSON-LD Person schema, full Open Graph + Twitter cards, canonical (Sep 2026)
 - [x] Perf/security: Lighthouse 4×100, inlined CSS, resized avatar, meta CSP, Astro 7 (Sep 2026)
 - [x] Uptime bars: instant hover/tap/focus readout, employer-based legend (Sep 2026)
+- [x] WebP avatar with jpg fallback, page down to 22 KiB (Sep 2026)
+- [x] Published to GitHub Pages on luismarques.ch, DNS via Cloudflare (Sep 2026)
