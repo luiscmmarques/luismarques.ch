@@ -25,9 +25,10 @@ Luís is an AWS employee. Anything published here must respect:
 | --- | --- |
 | `src/data/status.js` | **All content**: person, links, analytics config, channels, components, incidents, eras, disclaimers. Edit this for any copy change. |
 | `src/pages/index.astro` | The single page: layout, inline script, page-scoped styles, meta/SEO tags, CSP. |
-| `src/components/` | `StatusRow` (component rows), `Incident` (timeline entries), `Icon` (inline SVG paths from Simple Icons, CC0, plus a Material email icon). |
+| `src/components/` | `StatusRow` (component rows), `Incident` (timeline entries), `Icon` (brand SVG paths from Simple Icons, CC0, plus a Material email icon), `Glyph` (outline glyphs for component rows, traced from Feather Icons), `Flag` (CH/PT), `Canton` (VS/VD/GE arms, deliberately stylized because real blazons turn to mush at 14px). All of them take `label={false}` or are `aria-hidden` when the surrounding text already says the same thing. |
 | `src/styles/global.css` | Theme: black base, brand blue `#4d8dff` / `#2979ff`, orange `#ff8b3d`, kiro-style glow + grid background. Mobile-first. |
-| `public/` | `logo.svg`, `luis.jpg` (link previews, kept as jpg because some social scrapers handle WebP badly), `luis-sm.webp` + `luis-sm.jpg` (page avatar, WebP first with a jpg fallback; regenerate with `cwebp -q 82 public/luis-sm.jpg -o public/luis-sm.webp`), `CNAME`, `robots.txt`, `sitemap.xml`, `llms.txt`, `humans.txt`, `.well-known/security.txt` (RFC 9116, has an Expires date to renew yearly). |
+| `public/` | `logo.svg`, `og.png` (the link preview card, generated from `tools/og-card.html`, not hand-edited), `luis.jpg` (portrait used by the JSON-LD `image`, kept as jpg for scrapers), `luis-sm.webp` + `luis-sm.jpg` (page avatar, WebP first with a jpg fallback; regenerate with `cwebp -q 82 public/luis-sm.jpg -o public/luis-sm.webp`), `CNAME`, `robots.txt`, `sitemap.xml`, `llms.txt`, `humans.txt`, `.well-known/security.txt` (RFC 9116, has an Expires date to renew yearly). |
+| `tools/` | Build-time helpers, excluded from the site. `og-card.html` is the 1200x630 source of `public/og.png`; `og-optimize.py` palettes the screenshot down from around 210 KB to around 70 KB. Regeneration command is in the card's header comment. Nothing here ends up in `dist/`. |
 | `.github/workflows/deploy.yml` | GitHub Pages deploy on push to `main` (withastro/action). There are no hosted branch previews; preview locally with `npm run preview`. |
 | `ROADMAP.md` | Planned work. Check it before proposing features. |
 
@@ -39,6 +40,8 @@ GoatCounter (cookieless, no consent banner needed), configured in `src/data/stat
 
 - **New job / role change**: add an incident object at the top of `incidents` in `src/data/status.js` and extend `eras` for the uptime bars.
 - **Copy tweaks**: edit `src/data/status.js` only; the page renders from it.
+- **Link preview**: after changing the name, title or theme, regenerate `public/og.png` (see `tools/og-card.html`) so the card does not drift from the page.
+- **Uptime bars**: each era in `eras` declares only the year it `start`ed; it runs until the next era begins, and the last runs to today. Concurrent engagements go in `overlaps` and render as split bars. Never hardcode end years, that is how bars and incident periods drift apart.
 - **New section**: add the section in `index.astro`, give it a stable `id` (it becomes a deep link), and add it to the `navItems` array so both the desktop nav and burger menu pick it up.
 
 ## Build, test, deploy
@@ -58,5 +61,6 @@ Deployment is automatic: push to `main`, the workflow builds and publishes to Gi
 
 - Mobile-first and responsive; verify at ~390 px and 1280 px before calling a layout change done.
 - Accessible: keep the skip link, `aria-expanded` on the burger, `aria-label`s on icon-only links, focus styles, `aria-live` on the bars readout, and `prefers-reduced-motion` handling. Lighthouse accessibility stays at 100.
-- Fast: the whole site is a single HTML page with inlined CSS. Lighthouse performance stays at 100. If a change adds a network request or a dependency, it needs a very good reason.
-- The CSP meta tag in `index.astro` must list any new external origin (script/img/connect) or the resource will be blocked.
+- Fast: the whole site is a single HTML page with inlined CSS. Lighthouse performance stays at 100 (last check: 100 across performance, accessibility, best practices and SEO, mobile and desktop, 24 KiB transferred). If a change adds a network request or a dependency, it needs a very good reason. New iconography goes in as inline SVG, never as an emoji (platform-dependent rendering) or a font.
+- The CSP meta tag in `index.astro` must list any new external origin (script/img/connect) or the resource will be blocked. GitHub Pages serves no custom headers, so `frame-ancestors` and HSTS are out of reach: the meta CSP is the whole defence, keep `object-src 'none'`, `base-uri 'self'` and `form-action 'none'` in it.
+- Every external link keeps `rel="noopener"`. No inline event handlers, no `innerHTML` in the inline script.
