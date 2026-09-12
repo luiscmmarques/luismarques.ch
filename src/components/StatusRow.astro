@@ -1,5 +1,8 @@
 ---
-const { name, status, note } = Astro.props;
+import Glyph from './Glyph.astro';
+import Canton from './Canton.astro';
+
+const { name, status, note, icon, cantons } = Astro.props;
 
 const labels = {
   operational: 'Operational',
@@ -9,12 +12,26 @@ const labels = {
 };
 ---
 
-<div class="row">
+<div class="row" data-status={status}>
   <div class="row-main">
-    <span class="row-name">{name}</span>
+    <span class="row-name">
+      {icon && (
+        <span class="row-glyph">
+          <Glyph name={icon} />
+        </span>
+      )}
+      {name}
+    </span>
     <span class:list={['badge', status]}>{labels[status]}</span>
   </div>
-  <p class="row-note">{note}</p>
+  {/* Cantons are named in the note, so the arms are extra flavour, not information. */}
+  <p class="row-note">
+    {cantons && (
+      <span class="row-cantons">
+        {cantons.map((c) => <Canton canton={c} label={false} />)}
+      </span>
+    )}{note}
+  </p>
 </div>
 
 <style>
@@ -32,12 +49,33 @@ const labels = {
     gap: 1rem;
   }
   .row-name {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
     font-weight: 600;
   }
   .row-note {
     margin: 0.25rem 0 0;
     font-size: 0.85rem;
     color: var(--muted);
+  }
+  .row-cantons {
+    display: inline-flex;
+    align-items: center;
+    vertical-align: -0.15em;
+  }
+  /* Wrapper, not the svg: scoped styles do not reach into a child component,
+     and currentColor inherits from here into the glyph's strokes. */
+  .row-glyph {
+    display: inline-flex;
+    color: var(--ok);
+  }
+  .row[data-status='elevated'] .row-glyph,
+  .row[data-status='degraded'] .row-glyph {
+    color: var(--warn);
+  }
+  .row[data-status='maintenance'] .row-glyph {
+    color: var(--info);
   }
   .badge {
     font-size: 0.75rem;

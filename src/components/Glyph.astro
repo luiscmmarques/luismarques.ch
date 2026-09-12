@@ -1,0 +1,66 @@
+---
+// Outline glyphs for the component rows, traced from Feather Icons (MIT).
+// Inline on purpose: no icon library, no font, no extra request. They inherit
+// currentColor so each row's glyph matches its status colour.
+// Decorative by default: every row already has a visible text name.
+const { name, size = 16 } = Astro.props;
+---
+
+<svg
+  class="glyph"
+  viewBox="0 0 24 24"
+  width={size}
+  height={size}
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  focusable="false"
+>
+  {name === 'cloud' && <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path>}
+  {name === 'cart' && (
+    <>
+      <circle cx="9" cy="21" r="1"></circle>
+      <circle cx="20" cy="21" r="1"></circle>
+      <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+    </>
+  )}
+  {name === 'globe' && (
+    <>
+      <circle cx="12" cy="12" r="10"></circle>
+      <line x1="2" y1="12" x2="22" y2="12"></line>
+      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+    </>
+  )}
+  {name === 'pin' && (
+    <>
+      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+      <circle cx="12" cy="10" r="3"></circle>
+    </>
+  )}
+  {name === 'coffee' && (
+    <>
+      <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+      <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+      <line x1="6" y1="1" x2="6" y2="4"></line>
+      <line x1="10" y1="1" x2="10" y2="4"></line>
+      <line x1="14" y1="1" x2="14" y2="4"></line>
+    </>
+  )}
+  {name === 'zap' && <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>}
+  {name === 'compass' && (
+    <>
+      <circle cx="12" cy="12" r="10"></circle>
+      <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
+    </>
+  )}
+</svg>
+
+<style>
+  .glyph {
+    flex: none;
+    vertical-align: -0.15em;
+  }
+</style>
