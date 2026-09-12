@@ -1,0 +1,5 @@
+# Welcome, robots. Humans get the same content, no paywall, no cookies.
+User-agent: *
+Allow: /
+
+Sitemap: https://luismarques.ch/sitemap.xml

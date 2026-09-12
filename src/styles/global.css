@@ -1,0 +1,119 @@
+/* Mobile-first, dark-only. Black base, brand blue accents. */
+
+:root {
+  --bg: #05070d;
+  --surface: rgba(13, 18, 30, 0.75);
+  --surface-solid: #0d121e;
+  --border: rgba(120, 160, 255, 0.14);
+  --text: #e8edf7;
+  --muted: #94a0b8;
+  --accent: #4d8dff; /* brand blue, lifted for contrast on black */
+  --accent-strong: #2979ff;
+  --orange: #ff8b3d; /* logo arrow */
+  --ok: #3ddc97;
+  --ok-bg: rgba(61, 220, 151, 0.12);
+  --warn: #ffb020;
+  --warn-bg: rgba(255, 176, 32, 0.12);
+  --info: #4d8dff;
+  --info-bg: rgba(77, 141, 255, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: dark;
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  margin: 0;
+  background-color: var(--bg);
+  color: var(--text);
+  font-family:
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    Roboto,
+    'Helvetica Neue',
+    sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  /* kiro-style backdrop: soft radial glows over a faint grid, on black */
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(41, 121, 255, 0.22), transparent 70%),
+    radial-gradient(ellipse 50% 35% at 85% 20%, rgba(255, 109, 0, 0.07), transparent 70%),
+    radial-gradient(ellipse 60% 40% at 10% 60%, rgba(41, 121, 255, 0.08), transparent 70%),
+    linear-gradient(rgba(120, 160, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(120, 160, 255, 0.045) 1px, transparent 1px);
+  background-size:
+    100% 100%,
+    100% 100%,
+    100% 100%,
+    48px 48px,
+    48px 48px;
+  background-attachment: fixed;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: var(--accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+a:hover {
+  color: var(--orange);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--accent-strong);
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 0 0 8px 0;
+  z-index: 10;
+}
+
+.skip-link:focus {
+  left: 0;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}

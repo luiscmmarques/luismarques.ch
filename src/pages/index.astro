@@ -1,0 +1,747 @@
+---
+import '../styles/global.css';
+import StatusRow from '../components/StatusRow.astro';
+import Incident from '../components/Incident.astro';
+import Icon from '../components/Icon.astro';
+import { person, links, channels, components, incidents, eras, analytics } from '../data/status.js';
+
+const navItems = [
+  { label: 'About', href: '#about' },
+  { label: 'Components', href: '#components' },
+  { label: 'Uptime', href: '#uptime' },
+  { label: 'Support', href: '#support' },
+  { label: 'Incidents', href: '#incidents' },
+];
+
+const years = eras.flatMap(({ from, to, era, label }) =>
+  Array.from({ length: to - from + 1 }, (_, i) => ({
+    year: from + i,
+    era,
+    label,
+  }))
+);
+
+const daysAtAws = Math.floor(
+  (Date.now() - new Date(person.day1Start).getTime()) / 86_400_000
+);
+
+const description =
+  'Luís Marques is a Technical Account Manager at AWS, based in Switzerland. This is his personal status page. All systems operational.';
+
+// Structured data for search engines, generated from the same content file.
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: person.name,
+  jobTitle: 'Technical Account Manager',
+  worksFor: { '@type': 'Organization', name: 'Amazon Web Services' },
+  url: 'https://luismarques.ch/',
+  image: 'https://luismarques.ch/luis.jpg',
+  address: { '@type': 'PostalAddress', addressLocality: 'Martigny', addressCountry: 'CH' },
+  knowsLanguage: ['pt', 'en', 'fr'],
+  sameAs: links.map(({ href }) => href),
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {/* GitHub Pages cannot set HTTP headers, so CSP ships as a meta tag.
+        'unsafe-inline' is required: Astro inlines the stylesheet and the page script. */}
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline' https://gc.zgo.at; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://luismarques.goatcounter.com; connect-src 'self' https://luismarques.goatcounter.com; object-src 'none'; base-uri 'self'; form-action 'none'"
+    />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <title>Luís Marques | Status</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <link rel="canonical" href="https://luismarques.ch/" />
+    <link rel="author" href="/humans.txt" />
+    <meta name="theme-color" content="#05070d" />
+    <meta name="author" content={person.name} />
+    <meta property="og:title" content="Luís Marques | Status" />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="profile" />
+    <meta property="og:site_name" content="Luís Marques" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:url" content="https://luismarques.ch/" />
+    <meta property="og:image" content="https://luismarques.ch/luis.jpg" />
+    <meta property="og:image:alt" content={`Portrait of ${person.name}`} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Luís Marques | Status" />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="https://luismarques.ch/luis.jpg" />
+    <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+    {analytics.goatcounter && (
+      <script
+        is:inline
+        async
+        src="https://gc.zgo.at/count.js"
+        data-goatcounter={`https://${analytics.goatcounter}.goatcounter.com/count`}
+      ></script>
+    )}
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <a class="brand" href="/" aria-label="Luís Marques status page, back to top">
+          <img src="/logo.svg" alt="" width="32" height="32" />
+          <span class="brand-name">luís marques <span class="brand-thin">/ status</span></span>
+        </a>
+        <nav class="nav-desktop" aria-label="Sections">
+          <ul class="header-links">
+            {navItems.map(({ label, href }) => (
+              <li><a href={href} data-goatcounter-click={`nav-${label.toLowerCase()}`}>{label}</a></li>
+            ))}
+          </ul>
+        </nav>
+        <ul class="header-socials" aria-label="Profile links">
+          {links.map(({ label, icon, href }) => (
+            <li>
+              <a href={href} rel="me noopener" aria-label={label} title={label} data-goatcounter-click={`out-${label.toLowerCase()}`}>
+                <Icon name={icon} size={18} />
+              </a>
+            </li>
+          ))}
+        </ul>
+        <button
+          class="burger"
+          type="button"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+          aria-label="Open menu"
+          id="burger"
+        >
+          <span class="burger-line" aria-hidden="true"></span>
+          <span class="burger-line" aria-hidden="true"></span>
+          <span class="burger-line" aria-hidden="true"></span>
+        </button>
+      </div>
+      <nav class="mobile-menu" id="mobile-menu" aria-label="Sections" hidden>
+        <ul class="wrap mobile-list">
+          {navItems.map(({ label, href }) => (
+            <li><a href={href} data-goatcounter-click={`nav-${label.toLowerCase()}`}>{label}</a></li>
+          ))}
+          <li class="mobile-socials">
+            {links.map(({ label, icon, href }) => (
+              <a href={href} rel="me noopener" aria-label={label} data-goatcounter-click={`out-${label.toLowerCase()}`}>
+                <Icon name={icon} size={16} />
+                {label}
+              </a>
+            ))}
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <main id="main" class="wrap">
+      <section aria-label="Overall status">
+        <div class="banner" role="status">
+          <span class="banner-dot" aria-hidden="true"></span>
+          All Systems Operational
+        </div>
+      </section>
+
+      <section id="about" class="hero" aria-label="About">
+        <img class="avatar" src={person.photo} alt={`Portrait of ${person.name}`} width="112" height="112" loading="eager" />
+        <div>
+          <h1>{person.name}</h1>
+          <p class="hero-title">
+            <a href={person.titleUrl} rel="noopener" title="What a TAM does, officially" data-goatcounter-click="out-tam-role">{person.title}</a>
+          </p>
+          <p class="hero-tagline">{person.tagline}</p>
+        </div>
+      </section>
+
+      <section aria-label="Key metrics">
+        <div class="metrics">
+          <div class="metric">
+            <p class="metric-label">Uptime</p>
+            <p class="metric-value">
+              100%<span class="metric-note">*</span>
+            </p>
+            <p class="metric-sub">
+              *measured since you opened this page: <span id="uptime-counter" aria-hidden="true">0s</span> and counting
+            </p>
+          </div>
+          <div class="metric">
+            <p class="metric-label">Region</p>
+            <p class="metric-value">{person.region}</p>
+            <p class="metric-sub">
+              <svg class="flag-ch" viewBox="0 0 32 32" width="14" height="14" role="img" aria-label="Swiss flag">
+                <rect width="32" height="32" rx="6" fill="#d52b1e"></rect>
+                <rect x="13" y="7" width="6" height="18" fill="#fff"></rect>
+                <rect x="7" y="13" width="18" height="6" fill="#fff"></rect>
+              </svg>
+              {person.location}. Not a real region. Yet.
+            </p>
+          </div>
+          <div class="metric">
+            <p class="metric-label">Day 1</p>
+            <p class="metric-value">× <span id="day1" data-start={person.day1Start}>{daysAtAws}</span></p>
+            <p class="metric-sub">
+              consecutive Day 1s at AWS since September 2022. Yes, they are all Day 1. I checked, it’s in the culture.
+            </p>
+          </div>
+          <div class="metric">
+            <p class="metric-label">Open incidents</p>
+            <p class="metric-value">0</p>
+            <p class="metric-sub">Everything below is resolved. Career postmortems available.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="components" aria-labelledby="components-heading">
+        <h2 id="components-heading">Components</h2>
+        <div class="card">
+          {components.map((c) => <StatusRow {...c} />)}
+        </div>
+      </section>
+
+      <section id="uptime" aria-labelledby="history-heading">
+        <h2 id="history-heading">Uptime history</h2>
+        <p class="section-sub">One bar per year of professional service. Hover, tap or tab through the bars.</p>
+        <div class="bars" role="img" aria-label={`Professional uptime from ${years[0].year} to ${years[years.length - 1].year}: QitSystem in Portugal, freelance eCommerce, Nespresso, SQLI, and AWS. No outages recorded, apart from vacations.`}>
+          {years.map(({ year, era, label }) => (
+            <span class:list={['bar', `era-${era}`]} tabindex="0" data-tip={`${year} · ${label}`}></span>
+          ))}
+        </div>
+        <p class="bars-readout" id="bars-readout" aria-live="polite">No bar selected. They all report 100% anyway.</p>
+        <ul class="bars-legend" aria-hidden="true">
+          {eras.map(({ era, name }) => (
+            <li><span class:list={['dot', `era-${era}`]}></span> {name}</li>
+          ))}
+        </ul>
+      </section>
+
+      <section id="support" aria-labelledby="channels-heading">
+        <h2 id="channels-heading">Support channels</h2>
+        <p class="section-sub">Route your request according to severity and how well you know me.</p>
+        <div class="channels">
+          {channels.map(({ name, description, sla, cta, icon, href }) => (
+            <div class="channel">
+              <h3 class="channel-name">{name}</h3>
+              <p class="channel-desc">{description}</p>
+              <p class="channel-sla">{sla}</p>
+              <a class="channel-cta" href={href} rel="me noopener" data-goatcounter-click={`channel-${icon}`}>
+                <Icon name={icon} size={16} />
+                {cta} →
+              </a>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section id="incidents" aria-labelledby="incidents-heading">
+        <h2 id="incidents-heading">Incident history</h2>
+        <p class="section-sub">All incidents resolved. Root cause analysis: curiosity.</p>
+        <div class="incidents">
+          {incidents.map((incident) => <Incident {...incident} />)}
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        {person.disclaimers.map((line) => <p>{line}</p>)}
+        <p>
+          Built with <a href="https://astro.build" rel="noopener">Astro</a>, hosted on
+          <a href="https://pages.github.com" rel="noopener">GitHub Pages</a>. Brand icons by
+          <a href="https://simpleicons.org" rel="noopener">Simple Icons</a>, cloud outline from
+          <a href="https://feathericons.com" rel="noopener">Feather Icons</a>.
+          All product names, logos and brands are property of their respective owners and are
+          used here for identification purposes only.
+        </p>
+        <p>
+          © {person.careerStart}–<span id="year">{new Date().getFullYear()}</span> {person.name} ·
+          {links.map(({ label, href }, i) => (
+            <>
+              <a href={href} rel="me noopener">{label}</a>{i < links.length - 1 ? ' · ' : ''}
+            </>
+          ))}
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      const el = document.getElementById('uptime-counter');
+      const start = Date.now();
+      const fmt = (ms) => {
+        const s = Math.floor(ms / 1000);
+        const h = Math.floor(s / 3600);
+        const m = Math.floor((s % 3600) / 60);
+        const sec = s % 60;
+        return h > 0 ? `${h}h ${m}m ${sec}s` : m > 0 ? `${m}m ${sec}s` : `${sec}s`;
+      };
+      if (el) setInterval(() => (el.textContent = fmt(Date.now() - start)), 1000);
+
+      // Day 1 counter — recompute client-side so it never goes stale between builds.
+      const day1 = document.getElementById('day1');
+      if (day1) {
+        const startDate = new Date(day1.dataset.start ?? '2022-09-01');
+        day1.textContent = String(Math.floor((Date.now() - startDate.getTime()) / 86_400_000));
+      }
+
+      // Footer year: the build-time value only changes on deploy, so refresh it
+      // client-side and the copyright survives New Year without a rebuild.
+      const year = document.getElementById('year');
+      if (year) year.textContent = String(new Date().getFullYear());
+
+      // Uptime bars: mirror the hovered/focused/tapped bar into the readout line,
+      // because native title tooltips are slow on desktop and absent on touch.
+      const readout = document.getElementById('bars-readout');
+      if (readout) {
+        document.querySelectorAll('.bar[data-tip]').forEach((bar) => {
+          const show = () => (readout.textContent = bar.dataset.tip);
+          bar.addEventListener('pointerenter', show);
+          bar.addEventListener('focus', show);
+          bar.addEventListener('click', show);
+        });
+      }
+
+      // Burger menu
+      const burger = document.getElementById('burger');
+      const menu = document.getElementById('mobile-menu');
+      if (burger && menu) {
+        const setOpen = (open) => {
+          burger.setAttribute('aria-expanded', String(open));
+          burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+          burger.classList.toggle('is-open', open);
+          menu.hidden = !open;
+        };
+        burger.addEventListener('click', () =>
+          setOpen(burger.getAttribute('aria-expanded') !== 'true')
+        );
+        menu.addEventListener('click', (e) => {
+          if (e.target instanceof Element && e.target.closest('a')) setOpen(false);
+        });
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && !menu.hidden) {
+            setOpen(false);
+            burger.focus();
+          }
+        });
+      }
+    </script>
+
+    <style>
+      .wrap {
+        width: min(100% - 2rem, 52rem);
+        margin-inline: auto;
+      }
+
+      /* Header */
+      .site-header {
+        border-bottom: 1px solid var(--border);
+        background: rgba(5, 7, 13, 0.7);
+        backdrop-filter: blur(8px);
+        position: sticky;
+        top: 0;
+        z-index: 5;
+      }
+      .header-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-block: 0.75rem;
+        gap: 1rem;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 0.55rem;
+        text-decoration: none;
+        color: var(--text);
+      }
+      .brand-name {
+        font-weight: 700;
+        letter-spacing: -0.01em;
+      }
+      .brand-thin {
+        font-weight: 400;
+        color: var(--muted);
+      }
+      .header-links {
+        display: flex;
+        gap: 1.1rem;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        font-size: 0.9rem;
+      }
+      .header-links a {
+        text-decoration: none;
+        color: var(--muted);
+      }
+      .header-links a:hover {
+        color: var(--text);
+      }
+      .nav-desktop {
+        display: none;
+        margin-left: auto;
+      }
+      .header-socials {
+        display: none;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        gap: 0.9rem;
+        align-items: center;
+      }
+      .header-socials a {
+        color: var(--muted);
+        display: inline-flex;
+        padding: 0.25rem;
+      }
+      .header-socials a:hover {
+        color: var(--orange);
+      }
+      .burger {
+        margin-left: auto;
+        display: inline-flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 5px;
+        width: 44px;
+        height: 44px;
+        padding: 10px;
+        background: none;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        cursor: pointer;
+      }
+      .burger-line {
+        display: block;
+        height: 2px;
+        width: 100%;
+        background: var(--text);
+        border-radius: 2px;
+        transition: transform 0.2s ease, opacity 0.2s ease;
+      }
+      .burger.is-open .burger-line:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+      }
+      .burger.is-open .burger-line:nth-child(2) {
+        opacity: 0;
+      }
+      .burger.is-open .burger-line:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+      }
+      .mobile-menu {
+        border-top: 1px solid var(--border);
+        background: rgba(5, 7, 13, 0.95);
+      }
+      .mobile-list {
+        list-style: none;
+        margin: 0;
+        padding-block: 0.5rem 1rem;
+      }
+      .mobile-list > li > a {
+        display: block;
+        padding: 0.7rem 0.25rem;
+        font-size: 1rem;
+        text-decoration: none;
+        color: var(--text);
+        border-bottom: 1px solid var(--border);
+      }
+      .mobile-socials {
+        display: flex;
+        gap: 1.25rem;
+        padding-top: 0.9rem;
+      }
+      .mobile-socials a {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.9rem;
+        color: var(--muted);
+        text-decoration: none;
+      }
+      main section {
+        scroll-margin-top: 4.5rem;
+      }
+
+      /* Banner */
+      .banner {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        margin-top: 1.5rem;
+        padding: 0.85rem 1.1rem;
+        border-radius: 12px;
+        background: linear-gradient(90deg, rgba(61, 220, 151, 0.16), rgba(61, 220, 151, 0.05));
+        border: 1px solid rgba(61, 220, 151, 0.35);
+        color: var(--ok);
+        font-weight: 700;
+        font-size: 1.05rem;
+      }
+      .banner-dot {
+        width: 0.7rem;
+        height: 0.7rem;
+        border-radius: 50%;
+        background: var(--ok);
+        box-shadow: 0 0 12px var(--ok);
+        animation: pulse 2.4s ease-in-out infinite;
+      }
+      @keyframes pulse {
+        50% {
+          opacity: 0.5;
+        }
+      }
+
+      /* Hero */
+      .hero {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-top: 2rem;
+        align-items: flex-start;
+      }
+      .avatar {
+        border-radius: 50%;
+        border: 2px solid var(--border);
+        box-shadow: 0 0 40px rgba(41, 121, 255, 0.25);
+        object-fit: cover;
+        aspect-ratio: 1;
+      }
+      h1 {
+        margin: 0;
+        font-size: clamp(1.6rem, 5vw, 2.2rem);
+        letter-spacing: -0.02em;
+      }
+      .hero-title {
+        margin: 0.15rem 0 0;
+        font-weight: 600;
+      }
+      .hero-title a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+      .hero-title a:hover {
+        color: var(--orange);
+        text-decoration: underline;
+      }
+      .hero-tagline {
+        margin: 0.5rem 0 0;
+        color: var(--muted);
+        max-width: 38rem;
+      }
+
+      /* Metrics */
+      .metrics {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+        margin-top: 1.75rem;
+      }
+      .metric {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 0.9rem 1.1rem;
+      }
+      .metric-label {
+        margin: 0;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--muted);
+      }
+      .metric-value {
+        margin: 0.1rem 0 0;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--text);
+        font-variant-numeric: tabular-nums;
+      }
+      .metric-note {
+        color: var(--orange);
+      }
+      .metric-sub {
+        margin: 0.15rem 0 0;
+        font-size: 0.8rem;
+        color: var(--muted);
+        font-variant-numeric: tabular-nums;
+      }
+      .flag-ch {
+        display: inline-block;
+        vertical-align: -2px;
+        margin-right: 0.15rem;
+      }
+
+      /* Sections */
+      h2 {
+        margin: 2.5rem 0 0.35rem;
+        font-size: 1.25rem;
+        letter-spacing: -0.01em;
+      }
+      .section-sub {
+        margin: 0 0 1rem;
+        font-size: 0.88rem;
+        color: var(--muted);
+      }
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        margin-top: 1rem;
+        overflow: hidden;
+      }
+
+      /* Uptime bars */
+      .bars {
+        display: flex;
+        gap: 3px;
+        align-items: stretch;
+        height: 2.4rem;
+      }
+      .bar {
+        flex: 1;
+        border-radius: 3px;
+        min-width: 4px;
+        transition: transform 0.15s ease, filter 0.15s ease;
+        cursor: default;
+      }
+      .bar:hover,
+      .bar:focus-visible {
+        transform: scaleY(1.12);
+        filter: brightness(1.4);
+      }
+      .era-qitsystem {
+        background: #3f5f8f;
+      }
+      .era-freelance {
+        background: #4d8dff;
+      }
+      .era-nespresso {
+        background: #8a5a2b;
+      }
+      .era-sqli {
+        background: #2979ff;
+      }
+      .era-aws {
+        background: var(--orange);
+      }
+      .bars-readout {
+        margin: 0.6rem 0 0;
+        font-size: 0.85rem;
+        color: var(--text);
+        font-variant-numeric: tabular-nums;
+        min-height: 1.4em;
+      }
+      .bars-legend {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem 1.1rem;
+        list-style: none;
+        margin: 0.6rem 0 0;
+        padding: 0;
+        font-size: 0.78rem;
+        color: var(--muted);
+      }
+      .bars-legend .dot {
+        display: inline-block;
+        width: 0.6rem;
+        height: 0.6rem;
+        border-radius: 2px;
+        margin-right: 0.3rem;
+        vertical-align: baseline;
+      }
+
+      /* Channels */
+      .channels {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+        margin-top: 1rem;
+      }
+      .channel {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 1rem 1.1rem;
+        display: flex;
+        flex-direction: column;
+      }
+      .channel-name {
+        margin: 0;
+        font-size: 1rem;
+      }
+      .channel-desc {
+        margin: 0.35rem 0 0;
+        font-size: 0.85rem;
+        color: var(--muted);
+        flex-grow: 1;
+      }
+      .channel-sla {
+        margin: 0.5rem 0 0;
+        font-size: 0.75rem;
+        color: var(--orange);
+      }
+      .channel-cta {
+        margin-top: 0.6rem;
+        font-size: 0.88rem;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+      }
+      .channel-cta:hover {
+        text-decoration: underline;
+      }
+
+      /* Incidents */
+      .incidents {
+        margin-top: 1.25rem;
+      }
+
+      /* Footer */
+      .site-footer {
+        margin-top: 3.5rem;
+        border-top: 1px solid var(--border);
+        padding-block: 1.5rem 2.5rem;
+        font-size: 0.8rem;
+        color: var(--muted);
+      }
+      .site-footer p {
+        margin: 0.4rem 0;
+      }
+
+      /* Larger screens */
+      @media (min-width: 768px) {
+        .nav-desktop {
+          display: block;
+        }
+        .header-socials {
+          display: flex;
+          margin-left: 1.25rem;
+        }
+        .burger,
+        .mobile-menu {
+          display: none;
+        }
+      }
+
+      @media (min-width: 640px) {
+        .hero {
+          flex-direction: row;
+          align-items: center;
+          gap: 1.5rem;
+        }
+        .metrics {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .channels {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+    </style>
+  </body>
+</html>

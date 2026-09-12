@@ -1,0 +1,8 @@
+# security.txt for luismarques.ch (RFC 9116)
+# This is a static personal website with no backend, no database and no cookies.
+# If you still found a vulnerability here, I am genuinely impressed. Please tell me.
+
+Contact: mailto:hi+security@luismarques.ch
+Expires: 2027-09-12T00:00:00.000Z
+Preferred-Languages: en, fr, pt
+Canonical: https://luismarques.ch/.well-known/security.txt

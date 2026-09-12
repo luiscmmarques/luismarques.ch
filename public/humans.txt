@@ -1,0 +1,16 @@
+/* TEAM */
+Human: Luís Marques
+Role: Everything, apparently
+Location: Martigny, Switzerland
+Contact: hi [at] luismarques.ch
+
+/* THANKS */
+An AI pair programmer helped with the wording and the plumbing.
+The ideas, the sarcasm and the career are all human.
+
+/* SITE */
+Stack: Astro, plain CSS, one tiny inline script
+Hosting: GitHub Pages
+Cookies: 0
+Analytics: GoatCounter, cookieless and anonymous
+Uptime: 100%, measured generously

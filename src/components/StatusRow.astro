@@ -1,0 +1,70 @@
+---
+const { name, status, note } = Astro.props;
+
+const labels = {
+  operational: 'Operational',
+  degraded: 'Degraded',
+  elevated: 'Elevated',
+  maintenance: 'Maintenance',
+};
+---
+
+<div class="row">
+  <div class="row-main">
+    <span class="row-name">{name}</span>
+    <span class:list={['badge', status]}>{labels[status]}</span>
+  </div>
+  <p class="row-note">{note}</p>
+</div>
+
+<style>
+  .row {
+    padding: 0.9rem 1.1rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .row:last-child {
+    border-bottom: none;
+  }
+  .row-main {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .row-name {
+    font-weight: 600;
+  }
+  .row-note {
+    margin: 0.25rem 0 0;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+  .badge {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.15rem 0.6rem;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .badge::before {
+    content: '●';
+    margin-right: 0.35rem;
+    font-size: 0.65rem;
+  }
+  .operational {
+    color: var(--ok);
+    background: var(--ok-bg);
+  }
+  .elevated {
+    color: var(--warn);
+    background: var(--warn-bg);
+  }
+  .degraded {
+    color: var(--warn);
+    background: var(--warn-bg);
+  }
+  .maintenance {
+    color: var(--info);
+    background: var(--info-bg);
+  }
+</style>

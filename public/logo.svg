@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="64" height="64" fill="none" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Luís Marques logo: a cloud with an arrow trending up and out">
+  <!-- cloud outline (Feather Icons "cloud", MIT) -->
+  <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a4 4 0 0 0 0-8z" stroke="#2f6fe4" stroke-width="2"/>
+  <!-- orange arrow trending up, breaking out of the cloud -->
+  <path d="M7 16c4-.5 7-3.5 10.2-9" stroke="#ff8b3d" stroke-width="2"/>
+  <path d="M13.9 6.4l4-.6-.5 4" stroke="#ff8b3d" stroke-width="2"/>
+</svg>
