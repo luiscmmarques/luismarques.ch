@@ -1,6 +1,6 @@
 # Luís Marques
 
-> Personal website of Luís Marques, Technical Account Manager at Amazon Web Services,
+> Personal website of Luís Marques, Technical Account Manager at Amazon Web Services (AWS),
 > based in Martigny, Switzerland. The site is a parody of a status page: career history
 > is rendered as resolved incidents, skills as monitored components, and contact options
 > as support channels. All opinions are his own and do not represent his employer.

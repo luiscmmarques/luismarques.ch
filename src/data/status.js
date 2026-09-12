@@ -7,7 +7,7 @@
 
 export const person = {
   name: 'Luís Marques',
-  title: 'Technical Account Manager @ Amazon Web Services',
+  title: 'Technical Account Manager @ Amazon Web Services (AWS)',
   // Official description of what a TAM actually does, for the curious.
   titleUrl: 'https://aws.amazon.com/premiumsupport/tam-engagement/',
   location: 'Martigny, Switzerland',
@@ -108,7 +108,7 @@ export const incidents = [
     period: 'Since 2022',
     title: 'Migrated to AWS, the employer this time, not just the cloud',
     severity: 'resolved',
-    org: 'Amazon Web Services · Geneva, CH',
+    org: 'Amazon Web Services (AWS) · Geneva, CH',
     role: 'Technical Account Manager',
     entries: [
       'Zero-downtime migration from consulting to cloud advisory.',
