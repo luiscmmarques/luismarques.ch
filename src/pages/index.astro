@@ -1,4 +1,5 @@
 ---
+import { execSync } from 'node:child_process';
 import '../styles/global.css';
 import StatusRow from '../components/StatusRow.astro';
 import Incident from '../components/Incident.astro';
@@ -14,6 +15,23 @@ const navItems = [
   { label: 'Support', href: '#support' },
   { label: 'Incidents', href: '#incidents' },
 ];
+
+// A human-readable build identifier, the same shape the other apps use: build date
+// plus short commit. Nothing here is about caching, Astro hashes what needs hashing.
+// It answers "which version am I looking at" when a page looks wrong, which a static
+// site otherwise gives no way to tell. Resolved at build time, so it names the commit
+// that produced this HTML, not whatever is checked out later.
+function buildVersion() {
+  let commit = 'unknown';
+  try {
+    commit = execSync('git rev-parse --short HEAD', { stdio: ['ignore', 'pipe', 'ignore'] }).toString().trim();
+  } catch {
+    // Building from a tarball, or git is missing. Not worth failing a build over.
+  }
+  return `${new Date().toISOString().slice(0, 10)}-${commit}`;
+}
+
+const buildId = buildVersion();
 
 // One entry per year. Each era runs from its start year until the next era
 // starts, and the last one runs to the current year. A year that also appears
@@ -317,6 +335,9 @@ const personSchema = {
             </>
           ))}
         </p>
+        {/* Last line on the page on purpose: it is the thing you quote when reporting
+            that something looks wrong, and a status page is the right place for it. */}
+        <p class="footer-build">Build <code>{buildId}</code></p>
       </div>
     </footer>
 
@@ -815,6 +836,15 @@ const personSchema = {
         color: var(--ok);
         background: var(--ok-bg);
         white-space: nowrap;
+      }
+      .footer-build {
+        margin-top: 0.9rem;
+        font-size: 0.75rem;
+        opacity: 0.75;
+      }
+      .footer-build code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 0.95em;
       }
       .footer-badge::before {
         content: '●';
