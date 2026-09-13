@@ -28,5 +28,6 @@ Ideas queued for luismarques.ch, roughly in order. No dates, no SLAs (fitting fo
 - [x] Published to GitHub Pages on luismarques.ch, DNS via Cloudflare (Sep 2026)
 - [x] Overlapping engagements in the uptime bars, split per year (Sep 2026)
 - [x] Footer badges, including "Cookies: 0", because no tracking is a feature (Sep 2026)
+- [x] Full app icon set from one render: favicon.ico, apple-touch-icon, maskable pair, web manifest (Sep 2026)
 - [x] OG image generated from the status banner, flags included (Sep 2026)
 - [x] Country flags, canton arms and component glyphs, all inline SVG (Sep 2026)
