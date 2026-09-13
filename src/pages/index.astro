@@ -506,10 +506,12 @@ const personSchema = {
         gap: 1.25rem;
         padding-top: 0.9rem;
       }
-      .mobile-socials a {
+      /* Selector has to outweigh .mobile-list > li > a above, which would otherwise
+         blockify these and drop the gap between each icon and its label. */
+      .mobile-list > .mobile-socials > a {
         display: inline-flex;
         align-items: center;
-        gap: 0.4rem;
+        gap: 0.45rem;
         font-size: 0.9rem;
         color: var(--muted);
         text-decoration: none;
