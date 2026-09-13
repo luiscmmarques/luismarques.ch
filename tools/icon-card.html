@@ -1,0 +1,62 @@
+<!doctype html>
+<!--
+  Source for the app icon tile. Not part of the site build, so nothing here ships
+  to dist/. Everything under public/ that a browser treats as "the app icon" is
+  derived from this one 512x512 render.
+
+  Regenerate after changing the logo or the theme:
+    npx playwright@latest screenshot --viewport-size=512,512 \
+      tools/icon-card.html public/icon-512.png
+    python3 tools/icons.py
+
+  The second step derives every other size, the maskable pair and favicon.ico
+  from that render, so this file is the only place the artwork is composed.
+
+  Why a filled tile rather than the bare logo.svg: the SVG favicon stays the bare
+  mark, because a tab strip draws it on whatever colour the browser theme picked
+  and an outline reads on both. Everything else lands somewhere that has no such
+  courtesy. iOS composites apple-touch-icon on black, an Android launcher draws a
+  manifest icon on a wallpaper, and a bookmark list draws favicon.ico on a row of
+  its own choosing. Those all need the icon to bring its own background.
+
+  The ground is flat #05070d, the same near-black the page uses, and flat on
+  purpose: tools/icons.py builds the maskable variant by insetting this render on
+  the same colour, which is seamless only while the ground has no gradient. The
+  page's blue glow would show its edge as a square outline at 192px.
+
+  The logo is inlined by the screenshot from public/, so run it from the repo root.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>luismarques.ch app icon</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        width: 512px;
+        height: 512px;
+      }
+      body {
+        background: #05070d;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      /*
+        76% of the tile, which is the padding an iOS or Android icon expects: the
+        artwork reads as an icon rather than as a screenshot of a logo. The
+        maskable variant is inset further by tools/icons.py, to survive a
+        launcher's crop.
+      */
+      img {
+        width: 76%;
+        height: 76%;
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <img src="../public/logo.svg" alt="" />
+  </body>
+</html>
