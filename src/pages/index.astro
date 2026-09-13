@@ -79,7 +79,21 @@ const personSchema = {
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <title>Luís Marques | Status</title>
     <meta name="description" content={description} />
+    {/* SVG first, so a tab draws the mark at whatever size it wants rather than upscaling a
+        raster. It stays the bare outline on purpose: a tab strip picks its own background
+        colour, and an outline reads on a light one and a dark one alike. */}
     <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    {/* Requested unconditionally by every browser, whatever the link above says, so without
+        the file every visit logs a 404. Also what bookmark lists and feed readers use. */}
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    {/* iOS ignores the manifest for the home screen and uses this one, composited on black,
+        which is why the whole raster set is a filled tile. See tools/icon-card.html. */}
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content={person.name} />
+    {/* Names the icons and the label for an Android home screen shortcut. Deliberately no
+        display mode: this is a page full of outbound links, not an app, and standalone would
+        strip the URL bar and the back button from it. */}
+    <link rel="manifest" href="/manifest.webmanifest" />
     <link rel="canonical" href="https://luismarques.ch/" />
     <link rel="author" href="/humans.txt" />
     <meta name="theme-color" content="#05070d" />
