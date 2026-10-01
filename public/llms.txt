@@ -1,20 +1,20 @@
 # Luís Marques
 
-> Personal website of Luís Marques, Technical Account Manager (TAM) at Amazon Web Services (AWS),
+> Personal website of Luís Marques, Senior Technical Account Manager (Sr. TAM) at Amazon Web Services (AWS),
 > based in Martigny, Switzerland. The site is a parody of a status page: career history
 > is rendered as resolved incidents, skills as monitored components, and contact options
 > as support channels. All opinions are his own and do not represent his employer.
 
 Key facts:
 
-- Current role: Technical Account Manager (TAM) at AWS (Geneva, Switzerland), since September 2022.
+- Current role: Senior Technical Account Manager (Sr. TAM) at AWS (Geneva, Switzerland), since October 2026. At AWS since September 2022, first as Technical Account Manager (TAM).
 - Background: 20+ years across web development, sysadmin, eCommerce consulting
   (Magento, SAP Hybris, Nespresso, SQLI) and freelancing, starting in Portugal.
 - Career order: QitSystem in Portugal from 2003, first as a part-time computer technician
   alongside his studies, then as web developer and sysadmin. Freelance eCommerce consulting
   in Valais from 2012. eCommerce consultant on SAP Hybris at Nestlé Nespresso in Lausanne
   from 2016. Magento developer, then tech lead and technical project manager at SQLI in
-  Lausanne from 2018. AWS since 2022.
+  Lausanne from 2018. AWS since 2022, promoted to Senior TAM in October 2026.
 - The Nespresso engagement spanned two employers: it continued through 2018 after the move
   to SQLI, which is why the 2016 and 2018 entries overlap.
 - Languages: Portuguese (native), English and French (fluent), Spanish (in beta).

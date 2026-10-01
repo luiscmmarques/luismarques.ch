@@ -7,7 +7,7 @@
 
 export const person = {
   name: 'Luís Marques',
-  title: 'Technical Account Manager (TAM) @ Amazon Web Services (AWS)',
+  title: 'Senior Technical Account Manager (Sr. TAM) @ Amazon Web Services (AWS)',
   // Official description of what a TAM actually does, for the curious.
   titleUrl: 'https://aws.amazon.com/premiumsupport/tam-engagement/',
   location: 'Martigny, Switzerland',
@@ -118,7 +118,22 @@ export const components = [
 // Career history, rendered as an incident log. Newest first.
 export const incidents = [
   {
-    period: 'Since 2022',
+    period: 'Since October 2026',
+    title: 'In-place upgrade: TAM to Senior TAM',
+    severity: 'resolved',
+    org: 'Amazon Web Services (AWS) · Geneva, CH',
+    flag: 'ch',
+    canton: 'ge',
+    role: 'Senior Technical Account Manager (Sr. TAM)',
+    entries: [
+      'Rolling upgrade, applied with zero downtime. No rollback plan was needed.',
+      'Change approved after a thorough review cycle, as all good changes are.',
+      'Release notes: wider scope, same curiosity, coffee intake unchanged.',
+      'Still Day 1. The counter above did not reset, I checked.',
+    ],
+  },
+  {
+    period: '2022 to 2026',
     title: 'Migrated to AWS, the employer this time, not just the cloud',
     severity: 'resolved',
     org: 'Amazon Web Services (AWS) · Geneva, CH',
@@ -215,10 +230,13 @@ export const eras = [
   { start: 2016, era: 'nespresso', name: 'Nespresso', label: 'Nespresso · eCommerce consultant · Lausanne' },
   { start: 2018, era: 'sqli', name: 'SQLI', label: 'SQLI · tech lead · Lausanne' },
   { start: 2022, era: 'aws', name: 'AWS', label: 'AWS · Technical Account Manager (TAM) · Geneva' },
+  { start: 2026, era: 'aws-sr', name: 'AWS (Senior)', label: 'AWS · Senior Technical Account Manager (Sr. TAM) · Geneva' },
 ];
 
 // Years that ran two engagements at once. Those bars render split, half of each colour.
 // 2018: the employer changed, the Nespresso engagement did not, so the year belongs to both.
+// 2026: TAM until September, Senior TAM from October, so the year carries both roles.
 export const overlaps = [
   { from: 2018, to: 2018, era: 'nespresso', label: 'Nespresso engagement continued through the employer change' },
+  { from: 2026, to: 2026, era: 'aws', label: 'TAM until September, promoted in October' },
 ];

@@ -66,14 +66,14 @@ const daysAtAws = Math.floor(
 );
 
 const description =
-  'Luís Marques is a Technical Account Manager at AWS, based in Switzerland. This is his personal status page. All systems operational.';
+  'Luís Marques is a Senior Technical Account Manager at AWS, based in Switzerland. This is his personal status page. All systems operational.';
 
 // Structured data for search engines, generated from the same content file.
 const personSchema = {
   '@context': 'https://schema.org',
   '@type': 'Person',
   name: person.name,
-  jobTitle: 'Technical Account Manager (TAM)',
+  jobTitle: 'Senior Technical Account Manager (Sr. TAM)',
   worksFor: { '@type': 'Organization', name: 'Amazon Web Services (AWS)', alternateName: 'AWS' },
   url: 'https://luismarques.ch/',
   image: 'https://luismarques.ch/luis.jpg',
@@ -265,7 +265,7 @@ const personSchema = {
       <section id="uptime" aria-labelledby="history-heading">
         <h2 id="history-heading">Uptime history</h2>
         <p class="section-sub">One bar per year of professional service. Hover, tap or tab through the bars. Split bars are years that ran two engagements at once.</p>
-        <div class="bars" role="img" aria-label={`Professional uptime from ${years[0].year} to ${years[years.length - 1].year}: QitSystem in Portugal, freelance eCommerce, Nespresso, SQLI, and AWS. 2018 counts twice, because the Nespresso engagement continued through the employer change. No outages recorded, apart from vacations.`}>
+        <div class="bars" role="img" aria-label={`Professional uptime from ${years[0].year} to ${years[years.length - 1].year}: QitSystem in Portugal, freelance eCommerce, Nespresso, SQLI, and AWS, as Technical Account Manager and then Senior Technical Account Manager from October 2026. 2018 counts twice, because the Nespresso engagement continued through the employer change, and 2026 counts twice for the promotion. No outages recorded, apart from vacations.`}>
           {years.map(({ year, era, era2, label }) => (
             <span
               class:list={['bar', `era-${era}`, era2 && 'is-split', era2 && `era2-${era2}`]}
@@ -706,6 +706,9 @@ const personSchema = {
       }
       .era-aws {
         --era-a: var(--orange);
+      }
+      .era-aws-sr {
+        --era-a: #ffc56b;
       }
       .era2-qitsystem {
         --era-b: #3f5f8f;
